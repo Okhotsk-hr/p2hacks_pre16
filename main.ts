@@ -20,6 +20,7 @@ strip1 = neopixel.create(DigitalPin.P0, 8, NeoPixelMode.RGB)
 let range1 = strip1.range(0, 8)
 let strip2 = neopixel.create(DigitalPin.P1, 8, NeoPixelMode.RGB)
 let range2 = strip2.range(0, 8)
+basic.showString("branc_testのブランチを追加")
 basic.forever(function () {
     if (1 == sensor) {
         strip1.showColor(neopixel.colors(NeoPixelColors.Red))
