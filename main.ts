@@ -1,31 +1,36 @@
-function LEDブロック参考 () {
-    // 各LEDをRGBの値で設定
-    strip1.setPixelColor(0, neopixel.rgb(255, 255, 255))
-    // LEDの明るさ設定
-    strip1.setBrightness(255)
-    strip1.show()
-    strip1.clear()
-    // LEDをレインボー点灯
-    strip1.showRainbow(1, 360)
-}
 input.onButtonPressed(Button.A, function () {
     sensor = 0
 })
 input.onButtonPressed(Button.B, function () {
     sensor = 1
 })
+function Flash_draw () {
+    strip.showColor(neopixel.colors(NeoPixelColors.Black))
+    i = 0
+    for (let index = 0; index < 8; index++) {
+        strip.setPixelColor(i - 1, neopixel.colors(NeoPixelColors.Black))
+        strip.setPixelColor(i, neopixel.colors(NeoPixelColors.Red))
+        strip.show()
+        basic.pause(100)
+        i += 1
+    }
+    strip.showColor(neopixel.colors(NeoPixelColors.Black))
+    basic.pause(2000)
+}
+let IR = 0
+let i = 0
 let sensor = 0
-let strip1: neopixel.Strip = null
-strip1 = neopixel.create(DigitalPin.P0, 8, NeoPixelMode.RGB)
-let range1 = strip1.range(0, 8)
-let strip2 = neopixel.create(DigitalPin.P1, 8, NeoPixelMode.RGB)
-let range2 = strip2.range(0, 8)
+let strip: neopixel.Strip = null
+strip = neopixel.create(DigitalPin.P2, 8, NeoPixelMode.RGB)
+let range = strip.range(0, 8)
+strip.setBrightness(100)
 basic.forever(function () {
-    if (1 == sensor) {
-        strip1.showColor(neopixel.colors(NeoPixelColors.Red))
-        strip2.showColor(neopixel.colors(NeoPixelColors.Red))
+    // 赤外線センサー：ドロー判定
+    // P0
+    if (pins.analogReadPin(AnalogPin.P0) < 20) {
+        IR = 1
+        Flash_draw()
     } else {
-        strip1.showColor(neopixel.colors(NeoPixelColors.Black))
-        strip2.showColor(neopixel.colors(NeoPixelColors.Black))
+        strip.showColor(neopixel.colors(NeoPixelColors.Black))
     }
 })
