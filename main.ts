@@ -1,5 +1,9 @@
 function red_flash () {
-	
+    strip.setPixelColor(randint(0, 7), neopixel.colors(NeoPixelColors.Black))
+    strip.setPixelColor(randint(0, 7), neopixel.colors(NeoPixelColors.Red))
+    strip.setBrightness(randint(1, 200))
+    strip.show()
+    basic.pause(30)
 }
 function blue_flash () {
     i = 0
