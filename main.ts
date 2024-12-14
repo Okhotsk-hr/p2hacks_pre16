@@ -16,30 +16,34 @@ function blue_flash () {
     basic.pause(1000)
 }
 function Flash_draw () {
-    strip.showColor(neopixel.colors(NeoPixelColors.Black))
     i = 0
-    for (let index = 0; index < 15; index++) {
-        color = 200
-        j = 0
-        for (let index = 0; index < 7; index++) {
-            strip.setPixelColor(i - j, neopixel.rgb(50, 0, color))
-            color += -10
-            j += 1
-        }
-        strip.show()
-        basic.pause(100)
+    for (let index = 0; index < 8; index++) {
+        strip.setPixelColor(i, neopixel.rgb(randint(0, 255), randint(0, 255), randint(0, 255)))
         i += 1
     }
-    strip.showColor(neopixel.colors(NeoPixelColors.Black))
-    basic.pause(2000)
+    strip.show()
 }
-let j = 0
-let color = 0
 let i = 0
 let strip: neopixel.Strip = null
 strip = neopixel.create(DigitalPin.P2, 8, NeoPixelMode.RGB)
 let range = strip.range(0, 8)
-strip.setBrightness(255)
+let go = 0
 basic.forever(function () {
-	
+    // 赤外線センサー：ドロー判定
+    // P0
+    if (pins.analogReadPin(AnalogPin.P0) > 30) {
+        go = 1
+        Flash_draw()
+    } else {
+        // 赤外線センサー：ドロー判定
+        // P0
+        if (go == 1) {
+            strip.showRainbow(1, 360)
+            strip.show()
+            basic.pause(500)
+            go = 0
+        } else {
+            strip.showColor(neopixel.colors(NeoPixelColors.Black))
+        }
+    }
 })
