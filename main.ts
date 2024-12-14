@@ -1,3 +1,6 @@
+input.onButtonPressed(Button.A, function () {
+    music.play(music.createSoundExpression(WaveShape.Sine, 1, 5000, 0, 255, 100, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
+})
 function red_flash () {
     strip.setPixelColor(randint(0, 7), neopixel.colors(NeoPixelColors.Black))
     strip.setPixelColor(randint(0, 7), neopixel.colors(NeoPixelColors.Red))
@@ -5,6 +8,9 @@ function red_flash () {
     strip.show()
     basic.pause(30)
 }
+input.onButtonPressed(Button.B, function () {
+    music._playDefaultBackground(music.builtInPlayableMelody(Melodies.JumpDown), music.PlaybackMode.InBackground)
+})
 function blue_flash () {
     i = 0
     for (let index = 0; index < 8; index++) {
@@ -37,9 +43,7 @@ let j = 0
 let color = 0
 let i = 0
 let strip: neopixel.Strip = null
-strip = neopixel.create(DigitalPin.P2, 8, NeoPixelMode.RGB)
-let range = strip.range(0, 8)
-strip.setBrightness(255)
+music.setVolume(20)
 basic.forever(function () {
 	
 })
